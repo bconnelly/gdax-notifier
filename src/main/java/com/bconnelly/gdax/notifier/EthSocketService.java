@@ -1,24 +1,27 @@
 package com.bconnelly.gdax.notifier;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Bryan on 7/18/2017.
  */
+
+@Service
 public class EthSocketService {
 
-    public static void listen() throws URISyntaxException, InterruptedException {
+    public void printMarketMovement(SocketResponseRepresentation response){
 
-        final EthSocketRepo socketRepo = new EthSocketRepo(new URI("wss://ws-feed.gdax.com"));
+        if(response.getOrder_type() != null && response.getOrder_type().equals("market")) {
 
-        socketRepo.addMessageHandler(
-            (String message) ->
-                System.out.println("Message: " + message));
+            if (response.getSide().equals("buy")) {
+                System.out.println("BUY  at " + response.getPrice() + " for " + response.getSize() + " ETH");
+            } else if (response.getSide().equals("sell")) {
+                System.out.println("SELL at " + response.getPrice() + " for " + response.getSize() + " ETH");
+            } else {
+                System.out.println("Side unknown: " + response.getSide());
+            }
 
-        while(true){
-            Thread.sleep(10000);
         }
-
     }
+
 }

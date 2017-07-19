@@ -4,15 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.URISyntaxException;
-import java.util.concurrent.TimeUnit;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.bconnelly.gdax")
 public class GdaxNotifierApplication {
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException {
 		SpringApplication.run(GdaxNotifierApplication.class, args);
 
-		EthSocketService.listen();
+		EthSocketController.listen();
 
 
 	}
