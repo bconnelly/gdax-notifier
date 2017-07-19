@@ -11,7 +11,9 @@ public class EthSocketService {
 
     public void printMarketMovement(SocketResponseRepresentation response){
 
-        if(response.getOrder_type() != null && response.getOrder_type().equals("market")) {
+        if(response.getType() != null && response.getType().equals("match")) {
+
+//            System.out.println(response);
 
             if (response.getSide().equals("buy")) {
                 System.out.println("BUY  at " + response.getPrice() + " for " + response.getSize() + " ETH");

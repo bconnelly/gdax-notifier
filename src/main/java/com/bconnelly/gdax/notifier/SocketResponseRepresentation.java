@@ -5,22 +5,25 @@ package com.bconnelly.gdax.notifier;
  */
 public class SocketResponseRepresentation {
     private String type;
+    private String trade_id;
     private String time;
     private String product_id;
     private String sequence;
-    private String order_id;
+    private String maker_order_id;
+    private String taker_order_id;
     private String size;
     private String price;
     private String side;
-    private String order_type;
 
-    public String getType() {
-        return type;
-    }
+    public String getType() { return type; }
 
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getTrade_id() { return trade_id; }
+
+    public void setTrade_id(String trade_id) { this.trade_id = trade_id; }
 
     public String getTime() {
         return time;
@@ -46,13 +49,17 @@ public class SocketResponseRepresentation {
         this.sequence = sequence;
     }
 
-    public String getOrder_id() {
-        return order_id;
+    public String getMaker_order_id() {
+        return maker_order_id;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setMaker_order_id(String maker_order_id) {
+        this.maker_order_id = maker_order_id;
     }
+
+    public String getTaker_order_id() { return taker_order_id; }
+
+    public void setTaker_order_id(String taker_order_id) { this.taker_order_id = taker_order_id; }
 
     public String getSize() {
         return size;
@@ -78,11 +85,15 @@ public class SocketResponseRepresentation {
         this.side = side;
     }
 
-    public String getOrder_type() {
-        return order_type;
-    }
-
-    public void setOrder_type(String order_type) {
-        this.order_type = order_type;
+    @Override
+    public String toString(){
+        return  "type: " + getType() + "\n" +
+                "time: " + getTime() + "\n" +
+                "product_id: " + getProduct_id() + "\n" +
+                "sequence: " + getSequence() + "\n" +
+                "maker_order_id: " + getMaker_order_id() + "\n" +
+                "size: " + getSize() + "\n" +
+                "price: " + getPrice() + "\n" +
+                "side: " + getSide();
     }
 }
