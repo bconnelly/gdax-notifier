@@ -41,6 +41,7 @@ public class EthSocketEndpoint {
         Gson gson = new Gson();
         SocketResponseRepresentation response = gson.fromJson(message, SocketResponseRepresentation.class);
         service.printMarketMovement(response);
+        service.notifyIfThresholdMet(response);
     }
 
     @OnClose

@@ -26,4 +26,16 @@ public class EthSocketService {
         }
     }
 
+    public void notifyIfThresholdMet(SocketResponseRepresentation response) {
+
+        int minThreshold = 200;
+
+        if(response.getType() != null && response.getType().equals("match")){
+//            check if the most recent trade breaks the threshold
+            if(Double.valueOf(response.getPrice()) >= minThreshold){
+                EmailService.sendMail("Threshold of " + minThreshold + " passed", "test body");
+                minThreshold += 50;
+            }
+        }
+    }
 }
