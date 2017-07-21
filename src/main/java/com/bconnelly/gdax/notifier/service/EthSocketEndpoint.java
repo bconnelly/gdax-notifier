@@ -1,7 +1,6 @@
 package com.bconnelly.gdax.notifier.service;
 
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
-import com.bconnelly.gdax.notifier.service.EthSocketService;
 import com.google.gson.Gson;
 
 import javax.websocket.*;
@@ -40,8 +39,8 @@ public class EthSocketEndpoint {
 
         Gson gson = new Gson();
         SocketResponseRepresentation response = gson.fromJson(message, SocketResponseRepresentation.class);
-        service.printMarketMovement(response);
-        service.notifyIfThresholdMet(response);
+        service.recordMarketMatch(response);
+//        service.notifyIfThresholdMet(response);
     }
 
     @OnClose

@@ -1,5 +1,6 @@
 package com.bconnelly.gdax.notifier.service;
 
+import com.bconnelly.gdax.notifier.repository.EthMatchesRepository;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EthSocketService {
 
-    public void printMarketMovement(SocketResponseRepresentation response){
+    private EthMatchesRepository ethMatchesRepository = new EthMatchesRepository();
+
+    public void recordMarketMatch(SocketResponseRepresentation response){
 
         if(response.getType() != null && response.getType().equals("match")) {
 
@@ -23,6 +26,8 @@ public class EthSocketService {
             } else {
                 System.out.println("Side unknown: " + response.getSide());
             }
+
+            ethMatchesRepository.insert(response);
 
         }
     }
