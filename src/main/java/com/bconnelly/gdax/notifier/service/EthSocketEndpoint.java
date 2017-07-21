@@ -1,8 +1,8 @@
-package com.bconnelly.gdax.notifier;
+package com.bconnelly.gdax.notifier.service;
 
+import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.service.EthSocketService;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import java.net.URI;

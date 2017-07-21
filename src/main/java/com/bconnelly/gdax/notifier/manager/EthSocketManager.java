@@ -1,5 +1,6 @@
-package com.bconnelly.gdax.notifier;
+package com.bconnelly.gdax.notifier.manager;
 
+import com.bconnelly.gdax.notifier.service.EthSocketEndpoint;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 
@@ -10,7 +11,7 @@ import java.net.URISyntaxException;
  * Created by Bryan on 7/18/2017.
  */
 @Controller
-public class EthSocketController {
+public class EthSocketManager {
 
     public static void listen() throws URISyntaxException, InterruptedException {
 

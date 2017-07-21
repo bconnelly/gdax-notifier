@@ -1,9 +1,8 @@
-package com.bconnelly.gdax.notifier;
+package com.bconnelly.gdax.notifier.repository;
 
+import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import org.springframework.data.cassandra.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import java.io.Serializable;
 
 /**
  * Created by Bryan on 7/19/2017.
@@ -12,7 +11,10 @@ import java.io.Serializable;
 
 public interface EthMatchesRepository extends CrudRepository<SocketResponseRepresentation, String>{
 
-    @Query("Select * from GDAX.ETH_USD_MATCHES")
+    @Query("SELECT * FROM GDAX.ETH_USD_MATCHES")
     SocketResponseRepresentation getAllMatches();
+
+    @Query("SELECT * FROM ETH_USD_MATCHES WHERE token(sequence) > token({id});")
+    SocketResponseRepresentation getMatchesSinceId(int id);
 
 }

@@ -1,5 +1,6 @@
-package com.bconnelly.gdax.notifier;
+package com.bconnelly.gdax.notifier.service;
 
+import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,8 +34,7 @@ public class EthSocketService {
         if(response.getType() != null && response.getType().equals("match")){
 //            check if the most recent trade breaks the threshold
             if(Double.valueOf(response.getPrice()) >= minThreshold){
-                EmailService.sendMail("Threshold of " + minThreshold + " passed", "test body");
-                minThreshold += 50;
+
             }
         }
     }

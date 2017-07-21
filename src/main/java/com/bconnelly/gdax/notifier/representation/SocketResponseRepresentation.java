@@ -1,4 +1,4 @@
-package com.bconnelly.gdax.notifier;
+package com.bconnelly.gdax.notifier.representation;
 
 /**
  * Created by Bryan on 7/18/2017.
