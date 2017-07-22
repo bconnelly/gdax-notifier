@@ -48,7 +48,7 @@ public class EthMatchesRepository {
 
     public List<ETH_USD_MATCH> getSinceSequenceId(int sequenceId){
 
-        String query = "SELECT * FROM " + table + " WHERE token(sequence) > " + sequenceId;
+        String query = "SELECT * FROM " + table + " WHERE bucket = 1 AND sequence > " + sequenceId;
 
         ResultSet result = session.execute(query);
         List<ETH_USD_MATCH> matches = new ArrayList<>();
@@ -68,17 +68,10 @@ public class EthMatchesRepository {
                     .setType(row.get("type", String.class))
                     .Build();
             matches.add(match);
+//            System.out.println("MATCH: " + match);
         }
 
-        System.out.println(result.all());
-//        Select select = QueryBuilder.select().from(table);
-//        Select.Where where = select.where(QueryBuilder.gt("sequence", sequenceId));
-
-
-//        System.out.println("PAYLOAD: " + where.getOutgoingPayload());
-//        System.out.println("PAYLOAD: " + where.getNamedValues(ProtocolVersion.NEWEST_SUPPORTED, CodecRegistry.DEFAULT_INSTANCE));
-//        System.out.println("QUERY STRING: " + where.getQueryString());
-        return null;
+        return matches;
 
     }
 

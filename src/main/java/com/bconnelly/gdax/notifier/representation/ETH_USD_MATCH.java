@@ -23,6 +23,8 @@ public class ETH_USD_MATCH {
     private String price;
     private String side;
 
+    private int bucket = 1;
+
     public ETH_USD_MATCH(int sequence, String type, String trade_id, String time, String product_id, String maker_order_id, String taker_order_id, String size, String price, String side) {
         this.sequence = sequence;
         this.type = type;
@@ -146,5 +148,20 @@ public class ETH_USD_MATCH {
             return new ETH_USD_MATCH(this.sequence, this.type, this.trade_id, this.time, this.product_id, this.maker_order_id,
                                      this.taker_order_id, this.size, this.price, this.side);
         }
+    }
+
+    @Override
+    public String toString(){
+
+        return "sequence: " + sequence + "\n" +
+               "type: " + type + "\n" +
+               "trade_id: " + trade_id + "\n" +
+               "time: " + time + "\n" +
+               "product_id: " + product_id + "\n" +
+               "maker_order_id: " + maker_order_id + "\n" +
+               "taker_order_id: " + taker_order_id + "\n" +
+               "size: " + size + "\n" +
+               "price: " + price+ "\n" +
+               "side: " + side + "\n";
     }
 }
