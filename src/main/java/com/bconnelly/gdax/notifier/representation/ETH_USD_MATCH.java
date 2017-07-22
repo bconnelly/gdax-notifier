@@ -36,43 +36,115 @@ public class ETH_USD_MATCH {
         this.side = side;
     }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
+    public int getSequence() {
+        return sequence;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getType() {
+        return type;
     }
 
-    public void setTrade_id(String trade_id) {
-        this.trade_id = trade_id;
+    public String getTrade_id() {
+        return trade_id;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getTime() {
+        return time;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setMaker_order_id(String maker_order_id) {
-        this.maker_order_id = maker_order_id;
+    public String getMaker_order_id() {
+        return maker_order_id;
     }
 
-    public void setTaker_order_id(String taker_order_id) {
-        this.taker_order_id = taker_order_id;
+    public String getTaker_order_id() {
+        return taker_order_id;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public String getSize() {
+        return size;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public String getPrice() {
+        return price;
     }
 
-    public void setSide(String side) {
-        this.side = side;
+    public String getSide() {
+        return side;
+    }
+
+    public static class Builder{
+        private int sequence;
+        private String type;
+        private String trade_id;
+        private String time;
+        private String product_id;
+        private String maker_order_id;
+        private String taker_order_id;
+        private String size;
+        private String price;
+        private String side;
+
+        public Builder(){
+
+        }
+
+        public Builder setSequence(int sequence){
+            this.sequence = sequence;
+            return this;
+        }
+
+        public Builder setType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder setTrade_id(String trade_id) {
+            this.trade_id = trade_id;
+            return this;
+        }
+
+        public Builder setTime(String time) {
+            this.time = time;
+            return this;
+        }
+
+        public Builder setProduct_id(String product_id) {
+            this.product_id = product_id;
+            return this;
+        }
+
+        public Builder setMaker_order_id(String maker_order_id) {
+            this.maker_order_id = maker_order_id;
+            return this;
+        }
+
+        public Builder setTaker_order_id(String taker_order_id) {
+            this.taker_order_id = taker_order_id;
+            return this;
+        }
+
+        public Builder setSize(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public Builder setPrice(String price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setSide(String side) {
+            this.side = side;
+            return this;
+        }
+
+        public ETH_USD_MATCH Build(){
+            return new ETH_USD_MATCH(this.sequence, this.type, this.trade_id, this.time, this.product_id, this.maker_order_id,
+                                     this.taker_order_id, this.size, this.price, this.side);
+        }
     }
 }
