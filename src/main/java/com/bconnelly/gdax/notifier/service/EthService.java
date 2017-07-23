@@ -13,7 +13,10 @@ public class EthService {
     private EthMatchesRepository repository = new EthMatchesRepository();
 
     public List<ETH_USD_MATCH> fetchMatchesSinceSequence(int sequence){
-
         return repository.getSinceSequenceId(sequence);
+    }
+
+    public List<ETH_USD_MATCH> fetchLastNMatches(String nMatches){
+        return repository.getLastN(nMatches);
     }
 }

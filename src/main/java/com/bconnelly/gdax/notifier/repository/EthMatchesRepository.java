@@ -51,27 +51,16 @@ public class EthMatchesRepository {
         String query = "SELECT * FROM " + table + " WHERE bucket = 1 AND sequence > " + sequenceId;
 
         ResultSet result = session.execute(query);
-        List<ETH_USD_MATCH> matches = new ArrayList<>();
 
-        while(!result.isExhausted()){
-            Row row = result.one();
-            ETH_USD_MATCH match = new ETH_USD_MATCH.Builder()
-                    .setMaker_order_id(row.get("maker_order_id", String.class))
-                    .setPrice(row.get("price", String.class))
-                    .setProduct_id(row.get("product_id", String.class))
-                    .setSequence(row.get("sequence", int.class))
-                    .setSide(row.get("side", String.class))
-                    .setSize(row.get("size", String.class))
-                    .setTaker_order_id(row.get("taker_order_id", String.class))
-                    .setTime(row.get("time", String.class))
-                    .setTrade_id(row.get("trade_id", String.class))
-                    .setType(row.get("type", String.class))
-                    .Build();
-            matches.add(match);
-//            System.out.println("MATCH: " + match);
-        }
+        return resultSetToListMatches(result);
+    }
 
-        return matches;
+    public List<ETH_USD_MATCH> getLastN(String nMatches){
+        String query = "SELECT * FROM " + table + " WHERE bucket = 1 LIMIT " + nMatches;
+
+        ResultSet result = session.execute(query);
+
+        return resultSetToListMatches(result);
 
     }
 
@@ -86,6 +75,30 @@ public class EthMatchesRepository {
                 representation.getSize(),
                 representation.getPrice(),
                 representation.getSide());
+    }
+
+    private List<ETH_USD_MATCH> resultSetToListMatches(ResultSet result) {
+
+        List<ETH_USD_MATCH> matches = new ArrayList<>();
+
+        while (!result.isExhausted()) {
+            Row row = result.one();
+            ETH_USD_MATCH match = new ETH_USD_MATCH.Builder()
+                    .setMaker_order_id(row.get("maker_order_id", String.class))
+                    .setPrice(row.get("price", String.class))
+                    .setProduct_id(row.get("product_id", String.class))
+                    .setSequence(row.get("sequence", int.class))
+                    .setSide(row.get("side", String.class))
+                    .setSize(row.get("size", String.class))
+                    .setTaker_order_id(row.get("taker_order_id", String.class))
+                    .setTime(row.get("time", String.class))
+                    .setTrade_id(row.get("trade_id", String.class))
+                    .setType(row.get("type", String.class))
+                    .Build();
+            matches.add(match);
+        }
+
+        return matches;
     }
 
 }
