@@ -56,7 +56,7 @@ public class EthMatchesRepository {
     }
 
     public List<ETH_USD_MATCH> getLastN(String nMatches){
-        String query = "SELECT * FROM " + table + " WHERE bucket = 1 LIMIT " + nMatches;
+        String query = "SELECT * FROM " + table + " WHERE bucket = 1 ORDER BY sequence desc LIMIT " + nMatches;
 
         ResultSet result = session.execute(query);
 
