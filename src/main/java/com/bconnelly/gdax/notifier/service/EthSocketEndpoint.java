@@ -15,7 +15,7 @@ public class EthSocketEndpoint {
     private Session userSession;
     private MessageHandler handler;
 
-    private EthSocketService service = new EthSocketService();
+    private EthRecorderService service = new EthRecorderService();
 
     public EthSocketEndpoint(URI endpoint){
         try{

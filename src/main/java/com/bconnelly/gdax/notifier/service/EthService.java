@@ -16,7 +16,7 @@ public class EthService {
         return repository.getSinceSequenceId(sequence);
     }
 
-    public List<ETH_USD_MATCH> fetchLastNMatches(String nMatches){
-        return repository.getLastN(nMatches);
+    public List<ETH_USD_MATCH> fetchLastNMatches(int nMatches){
+        return repository.getLastN(String.valueOf(nMatches));
     }
 }

@@ -12,7 +12,9 @@ public class GdaxNotifierApplication {
 	public static void main(String[] args) throws URISyntaxException, InterruptedException {
 		SpringApplication.run(GdaxNotifierApplication.class, args);
 
-		EthSocketManager.listen();
+
+
+		new EthSocketManager().call();
 
 
 	}

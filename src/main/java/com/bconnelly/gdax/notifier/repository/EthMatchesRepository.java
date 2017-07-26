@@ -2,9 +2,8 @@ package com.bconnelly.gdax.notifier.repository;
 
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.representation.USER_ALERT;
 import com.datastax.driver.core.*;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import com.datastax.driver.core.querybuilder.Select;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 
@@ -24,7 +23,8 @@ public class EthMatchesRepository {
     private Session session;
     private CassandraOperations ops;
     private String keyspace = "GDAX";
-    private String table = "ETH_USD_MATCHES";
+    private String table_matches = "ETH_USD_MATCHES";
+    private String table_alerts = "USER_ALERTS";
 
 
     public EthMatchesRepository(){
@@ -43,12 +43,12 @@ public class EthMatchesRepository {
 
         ops.insert(match);
 
-        System.out.println("Inserted successfully");
+//        System.out.println("Inserted successfully");
     }
 
     public List<ETH_USD_MATCH> getSinceSequenceId(int sequenceId){
 
-        String query = "SELECT * FROM " + table + " WHERE bucket = 1 AND sequence > " + sequenceId;
+        String query = "SELECT * FROM " + table_matches + " WHERE bucket = 1 AND sequence > " + sequenceId;
 
         ResultSet result = session.execute(query);
 
@@ -56,12 +56,23 @@ public class EthMatchesRepository {
     }
 
     public List<ETH_USD_MATCH> getLastN(String nMatches){
-        String query = "SELECT * FROM " + table + " WHERE bucket = 1 ORDER BY sequence desc LIMIT " + nMatches;
+        String query = "SELECT * FROM " + table_matches + " WHERE bucket = 1 ORDER BY sequence desc LIMIT " + nMatches;
 
         ResultSet result = session.execute(query);
 
         return resultSetToListMatches(result);
 
+    }
+
+    public void setNewAlert(String user, int value, boolean alertIfAbove){
+        USER_ALERT newAlert = new USER_ALERT.Builder()
+                .setAlert_if_above(alertIfAbove)
+                .setUser(user)
+                .setAlert_value(String.valueOf(value))
+                .setActive(true)
+                .build();
+
+        ops.insert(newAlert);
     }
 
     private ETH_USD_MATCH representationToETH_USD_MATCHES(SocketResponseRepresentation representation){

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class EthSocketService {
+public class EthRecorderService {
 
     private EthMatchesRepository ethMatchesRepository = new EthMatchesRepository();
 
@@ -29,18 +29,6 @@ public class EthSocketService {
 
             ethMatchesRepository.insert(response);
 
-        }
-    }
-
-    public void notifyIfThresholdMet(SocketResponseRepresentation response) {
-
-        int minThreshold = 200;
-
-        if(response.getType() != null && response.getType().equals("match")){
-//            check if the most recent trade breaks the threshold
-            if(Double.valueOf(response.getPrice()) >= minThreshold){
-
-            }
         }
     }
 }
