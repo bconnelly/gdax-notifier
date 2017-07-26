@@ -1,15 +1,14 @@
 package com.bconnelly.gdax.notifier.controller;
 
+import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
+import com.bconnelly.gdax.notifier.representation.USER_ALERT;
 import com.bconnelly.gdax.notifier.service.EthService;
 import com.sun.deploy.net.HttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +46,31 @@ public class EthController {
         }catch(NumberFormatException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-//        return "{\"key\":\"value\"}";
     }
+
+    @RequestMapping(value = "/setNewAlert", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> setNewAlert(@RequestHeader String user, @RequestHeader String value, @RequestHeader boolean above){
+        System.out.println("Recording new alert");
+
+        if(EthStatus.SUCCESS == service.setNewAlert(user, Integer.valueOf(value), above)){
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @RequestMapping(value = "/checkAlerts/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> checkAlerts(@PathVariable String user){
+        System.out.println("Checking alerts for " + user);
+
+        try{
+            List<USER_ALERT> alerts = service.checkAlerts(user);
+            return ResponseEntity.status(HttpStatus.OK).body(alerts);
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+    }
+
 }

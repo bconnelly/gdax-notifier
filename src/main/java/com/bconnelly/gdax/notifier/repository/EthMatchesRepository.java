@@ -1,5 +1,6 @@
 package com.bconnelly.gdax.notifier.repository;
 
+import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import com.bconnelly.gdax.notifier.representation.USER_ALERT;
@@ -64,7 +65,7 @@ public class EthMatchesRepository {
 
     }
 
-    public void setNewAlert(String user, int value, boolean alertIfAbove){
+    public EthStatus setNewAlert(String user, int value, boolean alertIfAbove){
         USER_ALERT newAlert = new USER_ALERT.Builder()
                 .setAlert_if_above(alertIfAbove)
                 .setUser(user)
@@ -73,6 +74,16 @@ public class EthMatchesRepository {
                 .build();
 
         ops.insert(newAlert);
+
+        return EthStatus.SUCCESS;
+    }
+
+    public List<USER_ALERT> checkAlerts(String user){
+        String query = "SELECT * FROM " + table_alerts + " WHERE bucket = '1' AND user = '" + user + "'";
+
+        ResultSet result = session.execute(query);
+
+        return resultSetToListAlerts(result);
     }
 
     private ETH_USD_MATCH representationToETH_USD_MATCHES(SocketResponseRepresentation representation){
@@ -110,6 +121,24 @@ public class EthMatchesRepository {
         }
 
         return matches;
+    }
+
+    private List<USER_ALERT> resultSetToListAlerts(ResultSet result) {
+        List<USER_ALERT> alerts = new ArrayList<>();
+
+        while(!result.isExhausted()){
+            Row row = result.one();
+            USER_ALERT alert = new USER_ALERT.Builder()
+                    .setUser(row.get("user", String.class))
+                    .setAlert_if_above(row.get("alert_if_above", boolean.class))
+                    .setAlert_value(row.get("alert_value", String.class))
+                    .setActive(row.get("active", boolean.class))
+                    .build();
+
+            alerts.add(alert);
+        }
+
+        return alerts;
     }
 
 }

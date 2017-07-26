@@ -1,7 +1,9 @@
 package com.bconnelly.gdax.notifier.service;
 
+import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.repository.EthMatchesRepository;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
+import com.bconnelly.gdax.notifier.representation.USER_ALERT;
 
 import java.util.List;
 
@@ -18,5 +20,13 @@ public class EthService {
 
     public List<ETH_USD_MATCH> fetchLastNMatches(int nMatches){
         return repository.getLastN(String.valueOf(nMatches));
+    }
+
+    public EthStatus setNewAlert(String user, int value, boolean alertIfAbove){
+        return repository.setNewAlert(user, value, alertIfAbove);
+    }
+
+    public List<USER_ALERT> checkAlerts(String user){
+        return repository.checkAlerts(user);
     }
 }
