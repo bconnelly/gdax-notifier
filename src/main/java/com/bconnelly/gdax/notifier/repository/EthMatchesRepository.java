@@ -78,7 +78,7 @@ public class EthMatchesRepository {
         return EthStatus.SUCCESS;
     }
 
-    public List<USER_ALERT> checkAlerts(String user){
+    public List<USER_ALERT> getAlerts(String user){
         String query = "SELECT * FROM " + table_alerts + " WHERE bucket = '1' AND user = '" + user + "'";
 
         ResultSet result = session.execute(query);

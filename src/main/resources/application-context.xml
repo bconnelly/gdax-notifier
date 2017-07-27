@@ -10,8 +10,9 @@
     <int:channel id="requestChannel"/>
     <int:channel id="responseChannel"/>
 
-    <int:chain id="wsChain" input-channel="requestChannel" output-channel="responseChannel">
+    <int:chain id="ethChain" input-channel="requestChannel" output-channel="responseChannel">
         <int:service-activator ref="ethRecorderHandler" method="handleMessage"/>
+        <int:service-activator ref="ethAlertHandler" method="handleMessage"/>
     </int:chain>
 
 </beans>

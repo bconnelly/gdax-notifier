@@ -4,12 +4,14 @@ import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.repository.EthMatchesRepository;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
 import com.bconnelly.gdax.notifier.representation.USER_ALERT;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Bryan on 7/21/2017.
  */
+@Service
 public class EthService {
 
     private EthMatchesRepository repository = new EthMatchesRepository();
@@ -26,7 +28,7 @@ public class EthService {
         return repository.setNewAlert(user, value, alertIfAbove);
     }
 
-    public List<USER_ALERT> checkAlerts(String user){
-        return repository.checkAlerts(user);
+    public List<USER_ALERT> getAlerts(String user){
+        return repository.getAlerts(user);
     }
 }

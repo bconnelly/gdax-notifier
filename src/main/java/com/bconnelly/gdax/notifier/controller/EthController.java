@@ -4,7 +4,6 @@ import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
 import com.bconnelly.gdax.notifier.representation.USER_ALERT;
 import com.bconnelly.gdax.notifier.service.EthService;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,11 +59,11 @@ public class EthController {
     }
 
     @RequestMapping(value = "/checkAlerts/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> checkAlerts(@PathVariable String user){
+    public ResponseEntity<?> getAlerts(@PathVariable String user){
         System.out.println("Checking alerts for " + user);
 
         try{
-            List<USER_ALERT> alerts = service.checkAlerts(user);
+            List<USER_ALERT> alerts = service.getAlerts(user);
             return ResponseEntity.status(HttpStatus.OK).body(alerts);
         } catch(Exception e){
             e.printStackTrace();

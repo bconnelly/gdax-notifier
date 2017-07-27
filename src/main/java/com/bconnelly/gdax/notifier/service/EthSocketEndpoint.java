@@ -1,5 +1,6 @@
 package com.bconnelly.gdax.notifier.service;
 
+import com.bconnelly.gdax.notifier.manager.ChainRequestManager;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import com.google.gson.Gson;
 
@@ -14,6 +15,7 @@ public class EthSocketEndpoint {
 
     private Session userSession;
     private MessageHandler handler;
+    private ChainRequestManager chainRequestManager = new ChainRequestManager();
 
     private EthRecorderService service = new EthRecorderService();
 
@@ -39,8 +41,9 @@ public class EthSocketEndpoint {
 
         Gson gson = new Gson();
         SocketResponseRepresentation response = gson.fromJson(message, SocketResponseRepresentation.class);
-        service.recordMarketMatch(response);
+//        service.recordMarketMatch(response);
 //        service.notifyIfThresholdMet(response);
+        chainRequestManager.executeChain(response);
     }
 
     @OnClose
