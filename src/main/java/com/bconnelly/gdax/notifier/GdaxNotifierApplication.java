@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.URISyntaxException;
 
-@SpringBootApplication(scanBasePackages = "com.bconnelly.gdax")
+@SpringBootApplication(scanBasePackages = "com.bconnelly.gdax.*")
 public class GdaxNotifierApplication {
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException {

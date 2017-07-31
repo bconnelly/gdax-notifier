@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ import java.util.List;
 public class EthController {
 
     EthService service = new EthService();
+
+    public EthController() throws URISyntaxException {
+    }
 
     @RequestMapping(value = "/getUpdates/{lastUpdate}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ETH_USD_MATCH>> getUpdates(@PathVariable String lastUpdate){
@@ -69,7 +73,32 @@ public class EthController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
     }
+
+    @RequestMapping(value = "/marketOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> marketOrder(@RequestHeader(required = false) String size,
+                                         @RequestHeader(required = false) String funds,
+                                         @RequestHeader String buyOrSell){
+
+        System.out.println("Executing market order");
+
+//      sanity check fields
+        if(buyOrSell.compareTo("buy") != 0 && buyOrSell.compareTo("sell") != 0){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{message: \"Invalid buyOrSell field: \"" + buyOrSell + "}");
+        }
+
+        //call service
+        if(size == null && funds != null){
+            service.marketOrder("", funds, buyOrSell);
+        } else if(size != null && funds == null) {
+            service.marketOrder(size, "", buyOrSell);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{message: \"At least one of 'size' and 'funds' must be present.\"}");
+        }
+
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 
 }

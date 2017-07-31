@@ -2,6 +2,7 @@ package com.bconnelly.gdax.notifier.manager;
 
 import com.bconnelly.gdax.notifier.service.EthSocketEndpoint;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.net.URI;

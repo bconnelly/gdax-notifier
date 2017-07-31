@@ -3,6 +3,8 @@ package com.bconnelly.gdax.notifier.service;
 import com.bconnelly.gdax.notifier.manager.ChainRequestManager;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import java.net.URI;
@@ -10,12 +12,15 @@ import java.net.URI;
 /**
  * Created by Bryan on 7/18/2017.
  */
+//@Component
 @ClientEndpoint
 public class EthSocketEndpoint {
 
     private Session userSession;
     private MessageHandler handler;
-    private ChainRequestManager chainRequestManager = new ChainRequestManager();
+
+    @Autowired
+    private ChainRequestManager chainRequestManager;
 
     private EthRecorderService service = new EthRecorderService();
 
@@ -41,9 +46,10 @@ public class EthSocketEndpoint {
 
         Gson gson = new Gson();
         SocketResponseRepresentation response = gson.fromJson(message, SocketResponseRepresentation.class);
-//        service.recordMarketMatch(response);
+//        TODO: replace this with handler chain
+        service.recordMarketMatch(response);
 //        service.notifyIfThresholdMet(response);
-        chainRequestManager.executeChain(response);
+//        chainRequestManager.executeChain(response);
     }
 
     @OnClose
@@ -53,6 +59,11 @@ public class EthSocketEndpoint {
 
     public void addMessageHandler(MessageHandler handler){
         this.handler = handler;
+    }
+
+    public void sendMessage(String message){
+        userSession.getAsyncRemote().sendText(message);
+        System.out.println("Sent message");
     }
 
     private void subscribeEthUsd(){

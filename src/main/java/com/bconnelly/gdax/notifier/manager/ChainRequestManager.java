@@ -1,14 +1,13 @@
 package com.bconnelly.gdax.notifier.manager;
 
+import com.bconnelly.gdax.notifier.config.ApplicationContextHolder;
 import com.bconnelly.gdax.notifier.config.ChainConfig;
 import com.bconnelly.gdax.notifier.handler.EthAlertHandler;
 import com.bconnelly.gdax.notifier.handler.EthMessageHandlerChain;
 import com.bconnelly.gdax.notifier.handler.EthRecorderHandler;
 import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.messaging.Message;
@@ -24,12 +23,13 @@ import java.util.ArrayList;
 
 //@ContextConfiguration(locations = "classpath:application-context.xml")
 @Component
-public class ChainRequestManager implements ApplicationContextAware {
+public class ChainRequestManager {
+
+//    @Autowired
+    private ApplicationContext context = ApplicationContextHolder.getContext();
 
     @Autowired
-    private ApplicationContext context;
-
-    private ChainConfig config = new ChainConfig();
+    private ChainConfig config;
 
     private DirectChannel requestChannel = new DirectChannel();
 
@@ -41,8 +41,8 @@ public class ChainRequestManager implements ApplicationContextAware {
 
     public void executeChain(SocketResponseRepresentation representation){
         //setup channels
-        requestChannel = config.inputChannel();
-        responseChannel = config.outputChannel();
+        requestChannel = (DirectChannel) context.getBean("inputChannel");
+        responseChannel = (QueueChannel) context.getBean("outputChannel");
         //create list of handlers to be called in the chain
         ArrayList<MessageHandler> ethHandlers = new ArrayList<>();
         ethHandlers.add(new EthRecorderHandler());
@@ -53,8 +53,7 @@ public class ChainRequestManager implements ApplicationContextAware {
         handlerChain.setHandlers(ethHandlers);
 
         //boilerplate
-        //TODO: Why is application context null???
-        handlerChain.setBeanFactory(context);
+        handlerChain.setBeanFactory(ApplicationContextHolder.getContext());
 
         //subscribe the handler chain to the output channel
         handlerChain.setOutputChannel(responseChannel);
@@ -80,8 +79,4 @@ public class ChainRequestManager implements ApplicationContextAware {
         requestChannel.unsubscribe(handlerChain);
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
-    }
 }

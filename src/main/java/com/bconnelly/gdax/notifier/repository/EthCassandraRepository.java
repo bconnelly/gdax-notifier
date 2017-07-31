@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 
-public class EthMatchesRepository {
+public class EthCassandraRepository {
 
     private Cluster cluster;
     private Session session;
@@ -28,7 +28,7 @@ public class EthMatchesRepository {
     private String table_alerts = "USER_ALERTS";
 
 
-    public EthMatchesRepository(){
+    public EthCassandraRepository(){
         try {
             cluster = Cluster.builder().addContactPoints(InetAddress.getByName("127.0.0.1")).build();
             session = cluster.connect(keyspace);

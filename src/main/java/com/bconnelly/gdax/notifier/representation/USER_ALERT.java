@@ -16,6 +16,7 @@ public class USER_ALERT {
     private String alert_value;
     private boolean active;
     private boolean alert_if_above;
+    private boolean triggered;
 
     public USER_ALERT(String bucket, String user, String alert_value, boolean active, boolean alert_if_above){
         this.bucket = bucket;
@@ -34,6 +35,10 @@ public class USER_ALERT {
     public boolean isActive() { return active; }
 
     public boolean isAlert_if_above() { return alert_if_above; }
+
+    public boolean isTriggered() { return triggered; }
+
+    public void setTriggered(boolean triggered) { this.triggered = triggered; }
 
     public static class Builder{
 

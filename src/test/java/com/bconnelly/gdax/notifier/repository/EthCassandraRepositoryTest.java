@@ -6,14 +6,12 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by Bryan on 7/21/2017.
  */
-public class EthMatchesRepositoryTest {
+public class EthCassandraRepositoryTest {
 
-    private EthMatchesRepository matchesRepository = new EthMatchesRepository();
+    private EthCassandraRepository matchesRepository = new EthCassandraRepository();
 
     @Test
     public void insert() throws Exception {

@@ -3,6 +3,7 @@ package com.bconnelly.gdax.notifier.service;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
 import org.junit.Test;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -13,6 +14,9 @@ import static org.junit.Assert.*;
 public class EthServiceTest {
 
     private EthService ethService = new EthService();
+
+    public EthServiceTest() throws URISyntaxException {
+    }
 
     @Test
     public void testFetchMatchesSinceSequence() throws Exception {
