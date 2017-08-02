@@ -3,7 +3,7 @@ package com.bconnelly.gdax.notifier.representation;
 /**
  * Created by Bryan on 7/18/2017.
  */
-public class SocketResponseRepresentation {
+public class RestResponseRepresentation {
     private String type;
     private String trade_id;
     private String time;

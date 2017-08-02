@@ -5,7 +5,7 @@ import com.bconnelly.gdax.notifier.config.ChainConfig;
 import com.bconnelly.gdax.notifier.handler.EthAlertHandler;
 import com.bconnelly.gdax.notifier.handler.EthMessageHandlerChain;
 import com.bconnelly.gdax.notifier.handler.EthRecorderHandler;
-import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.representation.RestResponseRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.integration.channel.DirectChannel;
@@ -39,7 +39,7 @@ public class ChainRequestManager {
 //        context = SpringApplication.run(ChainRequestManager.class);
 //    }
 
-    public void executeChain(SocketResponseRepresentation representation){
+    public void executeChain(RestResponseRepresentation representation){
         //setup channels
         requestChannel = (DirectChannel) context.getBean("inputChannel");
         responseChannel = (QueueChannel) context.getBean("outputChannel");
@@ -66,7 +66,7 @@ public class ChainRequestManager {
         handlerChain.start();
 
         //create message
-        Message<SocketResponseRepresentation> socketMessage = MessageBuilder.withPayload(representation).build();
+        Message<RestResponseRepresentation> socketMessage = MessageBuilder.withPayload(representation).build();
 
         //send/receive message
         requestChannel.send(socketMessage);

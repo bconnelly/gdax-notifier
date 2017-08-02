@@ -1,10 +1,9 @@
 package com.bconnelly.gdax.notifier.service;
 
 import com.bconnelly.gdax.notifier.manager.ChainRequestManager;
-import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.representation.RestResponseRepresentation;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import java.net.URI;
@@ -45,7 +44,7 @@ public class EthSocketEndpoint {
 //        System.out.println("Received message: " + message);
 
         Gson gson = new Gson();
-        SocketResponseRepresentation response = gson.fromJson(message, SocketResponseRepresentation.class);
+        RestResponseRepresentation response = gson.fromJson(message, RestResponseRepresentation.class);
 //        TODO: replace this with handler chain
         service.recordMarketMatch(response);
 //        service.notifyIfThresholdMet(response);

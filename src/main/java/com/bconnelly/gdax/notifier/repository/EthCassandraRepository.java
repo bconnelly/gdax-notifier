@@ -2,7 +2,7 @@ package com.bconnelly.gdax.notifier.repository;
 
 import com.bconnelly.gdax.notifier.enums.EthStatus;
 import com.bconnelly.gdax.notifier.representation.ETH_USD_MATCH;
-import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.representation.RestResponseRepresentation;
 import com.bconnelly.gdax.notifier.representation.USER_ALERT;
 import com.datastax.driver.core.*;
 import org.springframework.data.cassandra.core.CassandraOperations;
@@ -39,7 +39,7 @@ public class EthCassandraRepository {
         }
     }
 
-    public void insert(SocketResponseRepresentation representation){
+    public void insert(RestResponseRepresentation representation){
         ETH_USD_MATCH match = representationToETH_USD_MATCHES(representation);
 
         ops.insert(match);
@@ -86,7 +86,7 @@ public class EthCassandraRepository {
         return resultSetToListAlerts(result);
     }
 
-    private ETH_USD_MATCH representationToETH_USD_MATCHES(SocketResponseRepresentation representation){
+    private ETH_USD_MATCH representationToETH_USD_MATCHES(RestResponseRepresentation representation){
         return new ETH_USD_MATCH(Integer.valueOf(representation.getSequence()),
                 representation.getType(),
                 representation.getTrade_id(),

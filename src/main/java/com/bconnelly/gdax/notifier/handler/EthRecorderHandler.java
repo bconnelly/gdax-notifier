@@ -1,6 +1,6 @@
 package com.bconnelly.gdax.notifier.handler;
 
-import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
+import com.bconnelly.gdax.notifier.representation.RestResponseRepresentation;
 import com.bconnelly.gdax.notifier.service.EthRecorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.handler.AbstractMessageHandler;
@@ -19,6 +19,6 @@ public class EthRecorderHandler extends AbstractMessageHandler {
     @Override
     protected void handleMessageInternal(Message<?> message) throws Exception {
         System.out.println("Handling message");
-        service.recordMarketMatch((SocketResponseRepresentation)message.getPayload());
+        service.recordMarketMatch((RestResponseRepresentation)message.getPayload());
     }
 }

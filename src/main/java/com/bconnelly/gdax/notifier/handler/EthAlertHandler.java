@@ -1,6 +1,5 @@
 package com.bconnelly.gdax.notifier.handler;
 
-import com.bconnelly.gdax.notifier.representation.SocketResponseRepresentation;
 import com.bconnelly.gdax.notifier.service.EthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.handler.AbstractMessageHandler;
