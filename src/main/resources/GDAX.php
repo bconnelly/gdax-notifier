@@ -15,4 +15,3 @@
             return base64_encode(hash_hmac("sha256", $what, base64_decode($this->secret), true));
         }
     }
-?>

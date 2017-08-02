@@ -161,7 +161,7 @@ public class ETH_USD_MATCH {
                "maker_order_id: " + maker_order_id + "\n" +
                "taker_order_id: " + taker_order_id + "\n" +
                "size: " + size + "\n" +
-               "price: " + price+ "\n" +
+               "funds: " + price+ "\n" +
                "side: " + side + "\n";
     }
 }

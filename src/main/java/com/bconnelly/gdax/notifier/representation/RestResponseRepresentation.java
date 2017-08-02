@@ -93,7 +93,7 @@ public class RestResponseRepresentation {
                 "sequence: " + getSequence() + "\n" +
                 "maker_order_id: " + getMaker_order_id() + "\n" +
                 "size: " + getSize() + "\n" +
-                "price: " + getPrice() + "\n" +
+                "funds: " + getPrice() + "\n" +
                 "side: " + getSide();
     }
 }

@@ -2,7 +2,7 @@ CREATE TABLE gdax.test_table (
 	bucket int,
 	sequence int,
 	maker_order_id text,
-	price text,
+	funds text,
 	product_id text,
 	side text,
 	size text,
@@ -44,17 +44,17 @@ AND compaction = {
 	'unchecked_tombstone_compaction' : false
 };
 
-INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, price, side)
+INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, funds, side)
     VALUES (861006441, "match", 8373507, "2017-07-25T23:15:31.621000Z", "ETH-USD", "8caa7e8a-a3f5-46fe-812d-099778489037", "0e2b6bcd-352d-4f44-9ca3-12e02be0c089", "0.12687980", "200.50000000", "sell");
 
-INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, price, side)
+INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, funds, side)
     VALUES (861006442, "match", 8373508, "2017-07-25T23:15:33.621000Z", "ETH-USD", "8caa7e8a-a3f5-46fe-812d-099778489037", "0e2b6bcd-352d-4f44-9ca3-12e02be0c089", "0.12687980", "200.50000000", "buy");
 
-INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, price, side)
+INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, funds, side)
     VALUES (861006443, "match", 8373509, "2017-07-25T23:15:35.621000Z", "ETH-USD", "8caa7e8a-a3f5-46fe-812d-099778489037", "0e2b6bcd-352d-4f44-9ca3-12e02be0c089", "0.12687980", "200.50000000", "sell");
 
-INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, price, side)
+INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, funds, side)
     VALUES (861006444, "match", 8373510, "2017-07-25T23:15:36.621000Z", "ETH-USD", "8caa7e8a-a3f5-46fe-812d-099778489037", "0e2b6bcd-352d-4f44-9ca3-12e02be0c089", "0.12687980", "200.50000000", "sell");
 
-INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, price, side)
+INSERT INTO gdax.test_table (bucket, sequence, type, trade_id, time, product_id, maker_order_id, taker_order_id, size, funds, side)
     VALUES (861006445, "match", 8373511, "2017-07-25T23:15:38.621000Z", "ETH-USD", "8caa7e8a-a3f5-46fe-812d-099778489037", "0e2b6bcd-352d-4f44-9ca3-12e02be0c089", "0.12687980", "200.50000000", "buy");
