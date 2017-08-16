@@ -33,8 +33,11 @@ public class EthRestRepository {
 
         String timestamp = getGdaxTime();
 
+        System.out.println("API Key: " + System.getenv("gdax_access_key"));
+
         try {
-            ClientResponse webResponse = webResource.header("CB-ACCESS-SIGN", createSignature(request, timestamp))
+            ClientResponse webResponse = webResource
+                    .header("CB-ACCESS-SIGN", createSignature(request, timestamp))
                     .header("CB-ACCESS-KEY", System.getenv("gdax_access_key"))
                     .header("CB-ACCESS-PASSPHRASE", System.getenv("gdax_access_passphrase"))
                     .header("CB-ACCESS-TIMESTAMP", timestamp)
@@ -55,8 +58,8 @@ public class EthRestRepository {
         String body = gson.toJson(request);
 
         //decode the access key and convert it to an encryption key
-        byte[] decodedKey = Base64.getDecoder().decode(System.getenv("gdax_access_key"));
-        SecretKey encryptionKey = new SecretKeySpec(decodedKey, "HmacSHA1");
+        byte[] decodedSecret = Base64.getDecoder().decode(System.getenv("gdax_access_secret"));
+        SecretKey encryptionKey = new SecretKeySpec(decodedSecret, "HmacSHA1");
 
         //setup mac for proper encryption type
         Mac mac = Mac.getInstance("HmacSHA1");
@@ -71,8 +74,6 @@ public class EthRestRepository {
         byte[] digest = Base64.getEncoder().encode(mac.doFinal(byteBody));
 
         String retString = new BigInteger(digest).toString(16);
-
-        System.out.println(retString);
 
         return retString;
     }
